@@ -168,7 +168,7 @@
         @media (min-width: 1280px) { .custom-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1.75rem; } }
 
         /* Lightbox Style with Scrollable Modal for Mobile */
-        #zoomOverlay {
+        #zoomOverlay, #teacherOverlay {
             transition: all 0.3s ease;
             backdrop-filter: blur(8px);
             background: rgba(15, 23, 42, 0.6);
@@ -181,8 +181,26 @@
             max-height: 90vh;
             overflow-y: auto;
         }
-        #zoomOverlay.active .modal-content {
+        #zoomOverlay.active .modal-content, #teacherOverlay.active .modal-content {
             transform: scale(1);
+        }
+
+        /* Toga Cap Badge */
+        .toga-overlay-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #fbbf24;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            z-index: 20;
+            border: 2px solid white;
         }
 
         .nav-link {
@@ -374,6 +392,8 @@
                         <img id="userPhotoDisplay" src="" alt="User" class="w-7 h-7 md:w-8 md:h-8 rounded-full border-2 border-amber-400 object-cover bg-slate-800">
                     </div>
 
+                    <div onclick="scrollToSection('sambutan')" class="nav-link text-[9px] md:text-[10px] font-black text-white hover:text-amber-400 uppercase tracking-widest transition-colors">Sambutan</div>
+                    <div onclick="scrollToSection('guru')" class="nav-link text-[9px] md:text-[10px] font-black text-white hover:text-amber-400 uppercase tracking-widest transition-colors">Guru</div>
                     <div onclick="scrollToSection('galeri')" class="nav-link text-[9px] md:text-[10px] font-black text-white hover:text-amber-400 uppercase tracking-widest transition-colors">Galeri</div>
                     <div onclick="scrollToSection('alumni')" class="nav-link text-[9px] md:text-[10px] font-black text-white hover:text-amber-400 uppercase tracking-widest transition-colors">Alumni</div>
                     <div onclick="logout()" class="nav-link text-[10px] font-black text-red-400 hover:text-white uppercase tracking-widest transition-colors btn-touch"><i class="fas fa-sign-out-alt"></i></div>
@@ -381,10 +401,13 @@
             </div>
         </nav>
 
-        <!-- Modal Detail Profil (Popup) -->
+        <!-- Modal Detail Profil (Siswa) -->
         <div id="zoomOverlay" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 opacity-0 cursor-zoom-out" onclick="closeZoom()">
             <div class="modal-content max-w-2xl w-full rounded-[32px] shadow-2xl relative flex flex-col md:flex-row p-5 md:p-8 gap-6 md:gap-8" onclick="event.stopPropagation()">
-                <div class="w-full md:w-2/5 aspect-[1/1.2] bg-slate-100 rounded-2xl overflow-hidden shrink-0">
+                <div class="w-full md:w-2/5 aspect-[1/1.2] bg-slate-100 rounded-2xl overflow-hidden shrink-0 relative">
+                    <div class="toga-overlay-badge">
+                        <i class="fas fa-graduation-cap text-lg"></i>
+                    </div>
                     <img id="zoomedImage" src="" alt="Profil" class="w-full h-full object-cover select-none pointer-events-none" oncontextmenu="return false;">
                 </div>
                 <div class="flex flex-col justify-between py-1 flex-grow pr-2">
@@ -395,7 +418,7 @@
                                 <i class="fas fa-times text-2xl"></i>
                             </button>
                         </div>
-                        <div class="space-y-6">
+                        <div class="space-y-4">
                             <div>
                                 <p class="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Nama Siswa</p>
                                 <h3 id="modalNama" class="text-slate-900 text-2xl md:text-3xl font-black tracking-tighter leading-tight"></h3>
@@ -403,16 +426,21 @@
                             <div class="grid grid-cols-2 gap-4">
                                 <div class="bg-white/50 p-3 rounded-2xl border border-white">
                                     <p class="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">NIS</p>
-                                    <p id="modalNIS" class="text-slate-800 text-lg font-black font-mono"></p>
+                                    <p id="modalNIS" class="text-slate-800 text-base md:text-lg font-black font-mono"></p>
                                 </div>
                                 <div class="bg-white/50 p-3 rounded-2xl border border-white">
                                     <p class="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Tahun Lulus</p>
-                                    <p class="text-blue-600 text-lg font-black tracking-tighter">2026</p>
+                                    <p class="text-blue-600 text-base md:text-lg font-black tracking-tighter">2026</p>
                                 </div>
+                            </div>
+                            <!-- Kesan dan Pesan Siswa -->
+                            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-2xl border border-blue-100/50 mt-2">
+                                <p class="text-[9px] font-black text-blue-500 uppercase tracking-[0.2em] mb-1.5"><i class="fas fa-quote-left mr-1"></i> Kesan & Pesan Alumni</p>
+                                <p id="modalKesan" class="text-slate-700 text-xs md:text-sm italic font-medium leading-relaxed"></p>
                             </div>
                         </div>
                     </div>
-                    <div class="mt-8 pt-4 border-t border-slate-100 flex items-center gap-3">
+                    <div class="mt-6 pt-4 border-t border-slate-100 flex items-center gap-3">
                         <img src="https://lh3.googleusercontent.com/d/1OK6qeJOGbMzz3mK8XQEMyc_cD4J0OY2d" alt="Logo" class="w-8 h-8 object-contain opacity-80">
                         <div class="leading-none">
                             <p class="text-[9px] font-black text-slate-800 uppercase tracking-tighter">SDN 1 Tanjungkarya</p>
@@ -423,19 +451,101 @@
             </div>
         </div>
 
+        <!-- Modal Detail Guru -->
+        <div id="teacherOverlay" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 opacity-0 cursor-zoom-out" onclick="closeTeacherZoom()">
+            <div class="modal-content max-w-2xl w-full rounded-[32px] shadow-2xl relative flex flex-col md:flex-row p-5 md:p-8 gap-6 md:gap-8" onclick="event.stopPropagation()">
+                <div class="w-full md:w-2/5 aspect-[1/1.2] bg-slate-100 rounded-2xl overflow-hidden shrink-0 relative">
+                    <div class="toga-overlay-badge bg-gradient-to-br from-amber-400 to-amber-600">
+                        <i class="fas fa-heart text-white text-lg"></i>
+                    </div>
+                    <img id="teacherZoomedImage" src="" alt="Profil Guru" class="w-full h-full object-cover select-none pointer-events-none" oncontextmenu="return false;">
+                </div>
+                <div class="flex flex-col justify-between py-1 flex-grow pr-2">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div id="modalTeacherRoleBadge" class="px-3 py-1 bg-amber-400 rounded-full text-[9px] font-black uppercase tracking-widest text-slate-900 shadow-sm">Pendidik</div>
+                            <button onclick="closeTeacherZoom()" class="text-slate-300 hover:text-slate-600 transition-colors btn-touch">
+                                <i class="fas fa-times text-2xl"></i>
+                            </button>
+                        </div>
+                        <div class="space-y-4">
+                            <div>
+                                <p class="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Nama Pengajar / Staff</p>
+                                <h3 id="modalTeacherNama" class="text-slate-900 text-2xl md:text-3xl font-black tracking-tighter leading-tight"></h3>
+                            </div>
+                            <div class="bg-amber-50 p-3 rounded-2xl border border-amber-200">
+                                <p class="text-[9px] font-black text-amber-600 uppercase tracking-[0.2em] mb-1">Jabatan / Peran</p>
+                                <p id="modalTeacherJabatan" class="text-slate-800 text-sm md:text-base font-bold"></p>
+                            </div>
+                            <!-- Kata Motivasi Guru -->
+                            <div class="bg-gradient-to-r from-amber-50 to-orange-50 p-4 rounded-2xl border border-amber-100/50 mt-2">
+                                <p class="text-[9px] font-black text-amber-600 uppercase tracking-[0.2em] mb-1.5"><i class="fas fa-feather-alt mr-1"></i> Pesan & Motivasi Guru</p>
+                                <p id="modalTeacherMotivasi" class="text-slate-700 text-xs md:text-sm italic font-medium leading-relaxed"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-100 flex items-center gap-3">
+                        <img src="https://lh3.googleusercontent.com/d/1OK6qeJOGbMzz3mK8XQEMyc_cD4J0OY2d" alt="Logo" class="w-8 h-8 object-contain opacity-80">
+                        <div class="leading-none">
+                            <p class="text-[9px] font-black text-slate-800 uppercase tracking-tighter">SDN 1 Tanjungkarya</p>
+                            <p class="text-[8px] font-bold text-slate-400 uppercase tracking-widest">Portal Alumni Resmi</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sambutan Kepala Sekolah Section -->
+        <section id="sambutan" class="max-w-5xl mx-auto px-4 pt-24 mb-16 scroll-mt-24">
+            <div class="bg-gradient-to-br from-slate-900 to-indigo-950 rounded-[40px] p-6 md:p-12 text-white shadow-2xl relative overflow-hidden flex flex-col md:flex-row gap-8 items-center">
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(59,130,246,0.15),transparent)]"></div>
+                <div class="w-36 h-36 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-amber-400 shrink-0 shadow-lg relative z-10 bg-slate-800">
+                    <img src="https://placehold.co/300x300/1e293b/fbbf24?text=Kepala+Sekolah" id="principalAvatar" alt="H. Agus Saepudin, S.Pd." class="w-full h-full object-cover">
+                </div>
+                <div class="relative z-10 text-center md:text-left">
+                    <div class="inline-flex items-center bg-amber-400/20 backdrop-blur-xl px-4 py-1.5 rounded-full text-amber-400 text-[9px] font-black uppercase tracking-[0.20em] mb-4 border border-amber-400/30">
+                        Sambutan Kepala Sekolah
+                    </div>
+                    <h2 class="text-2xl md:text-4xl font-black tracking-tight mb-3">
+                        Selamat Berjuang, <span class="text-amber-300">Anak-anakku!</span>
+                    </h2>
+                    <p class="text-slate-300 text-sm md:text-base font-medium leading-relaxed mb-6 italic">
+                        "Enam tahun penuh canda, tawa, dan perjuangan di SDN 1 Tanjungkarya telah membentuk pondasi kokoh bagi masa depan kalian. Kelulusan ini bukanlah titik akhir, melainkan awal dari mimpi besar yang sesungguhnya. Tetaplah menjadi anak yang berbakti, tekun belajar, dan jaga nama baik almamater di mana pun kalian melangkah."
+                    </p>
+                    <div>
+                        <p class="font-black text-amber-300 uppercase tracking-wider text-xs md:text-sm">H. Agus Saepudin, S.Pd.</p>
+                        <p class="text-[9px] md:text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Kepala Sekolah SDN 1 Tanjungkarya</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Guru Section -->
+        <section id="guru" class="max-w-7xl mx-auto px-4 mb-16 scroll-mt-24">
+            <div class="text-center md:text-left mb-8">
+                <div class="text-blue-600 text-[10px] font-black uppercase tracking-[0.4em] mb-2">Pendidik Hebat</div>
+                <h2 class="text-3xl md:text-5xl font-black text-slate-800 tracking-tighter">Profil <span class="text-blue-600">Guru & Staff</span></h2>
+                <p class="text-slate-400 text-xs md:text-sm mt-2">Klik profil guru untuk membaca pesan motivasi berharga mereka.</p>
+            </div>
+            
+            <div id="guruGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6">
+                <!-- Data guru dimuat secara dinamis dari Sheets / Fallback -->
+            </div>
+        </section>
+
         <!-- Alumni Grid Section -->
-        <main id="alumni" class="max-w-7xl mx-auto px-4 -mt-12 mb-12 relative z-20 scroll-mt-24">
+        <main id="alumni" class="max-w-7xl mx-auto px-4 mb-12 relative z-20 scroll-mt-24">
             <div class="grid grid-cols-3 md:grid-cols-4 gap-3 md:gap-4 mb-8 md:mb-12">
                 <div class="bg-white p-4 md:p-6 rounded-[24px] md:rounded-[32px] shadow-xl text-center border-b-4 border-slate-200 transition-all hover:scale-105 cursor-pointer" onclick="filterByGender('ALL')">
                     <p class="text-slate-400 text-[8px] md:text-[9px] font-black uppercase tracking-widest mb-1">Total</p>
                     <p id="totalSiswa" class="text-xl md:text-3xl font-black text-slate-800 tracking-tighter">-</p>
                 </div>
                 <div class="bg-white p-4 md:p-6 rounded-[24px] md:rounded-[32px] shadow-xl text-center border-b-4 border-blue-500 transition-all hover:scale-105 cursor-pointer" onclick="filterByGender('L')">
-                    <p class="text-blue-500 text-[8px] md:text-[9px] font-black uppercase tracking-widest mb-1">Laki</p>
+                    <p class="text-blue-500 text-[8px] md:text-[9px] font-black uppercase tracking-widest mb-1">Laki-laki</p>
                     <p id="totalLaki" class="text-xl md:text-3xl font-black text-blue-600 tracking-tighter">-</p>
                 </div>
                 <div class="bg-white p-4 md:p-6 rounded-[24px] md:rounded-[32px] shadow-xl text-center border-b-4 border-pink-500 transition-all hover:scale-105 cursor-pointer" onclick="filterByGender('P')">
-                    <p class="text-pink-500 text-[8px] md:text-[9px] font-black uppercase tracking-widest mb-1">Cewek</p>
+                    <p class="text-pink-500 text-[8px] md:text-[9px] font-black uppercase tracking-widest mb-1">Perempuan</p>
                     <p id="totalPerempuan" class="text-xl md:text-3xl font-black text-pink-600 tracking-tighter">-</p>
                 </div>
                 <div class="hidden md:flex bg-white p-6 rounded-[32px] shadow-xl items-center justify-center flex-col border-b-4 border-amber-500">
@@ -462,50 +572,17 @@
         <section id="galeri" class="max-w-7xl mx-auto px-4 mb-24 scroll-mt-24">
             <div class="flex flex-col md:flex-row items-end justify-between mb-8 md:mb-12 gap-4">
                 <div class="text-center md:text-left w-full md:w-auto">
-                    <div class="text-blue-600 text-[10px] font-black uppercase tracking-[0.4em] mb-2">The Highlights</div>
+                    <div class="text-blue-600 text-[10px] font-black uppercase tracking-[0.4em] mb-2">Momen Kebersamaan</div>
                     <h2 class="text-3xl md:text-5xl font-black text-slate-800 tracking-tighter">Galeri <span class="text-blue-600">Kenangan</span></h2>
                 </div>
                 <p class="text-slate-400 text-xs md:text-sm font-medium max-w-xs md:text-right italic mx-auto md:mx-0 text-center md:text-right">
-                    Potret kebersamaan yang tersusun dalam rangkaian cerita abadi.
+                    Potret kebersamaan yang tersusun dalam bentuk kolase artistik.
                 </p>
             </div>
             
-            <div class="collage-container">
-                <div class="collage-item big">
-                    <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=1200" alt="Momen Utama" class="collage-img">
-                    <div class="collage-overlay">
-                        <span class="text-[10px] font-black uppercase tracking-widest text-amber-400">Main Event</span>
-                        <h4 class="font-bold text-lg md:text-xl">Perayaan Kelulusan</h4>
-                    </div>
-                </div>
-                <div class="collage-item tall">
-                    <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80&w=800" alt="Kantin" class="collage-img">
-                    <div class="collage-overlay">
-                        <span class="text-[10px] font-black uppercase tracking-widest text-amber-400">Daily Life</span>
-                        <h4 class="font-bold text-sm md:text-base">Waktu Istirahat</h4>
-                    </div>
-                </div>
-                <div class="collage-item">
-                    <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=800" alt="Kelas" class="collage-img">
-                    <div class="collage-overlay">
-                        <span class="text-[10px] font-black uppercase tracking-widest text-amber-400">Study</span>
-                        <h4 class="font-bold text-sm">Di Dalam Kelas</h4>
-                    </div>
-                </div>
-                <div class="collage-item wide">
-                    <img src="https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?auto=format&fit=crop&q=80&w=1200" alt="Sahabat" class="collage-img">
-                    <div class="collage-overlay">
-                        <span class="text-[10px] font-black uppercase tracking-widest text-amber-400">Friends</span>
-                        <h4 class="font-bold text-base">Sahabat Sejati</h4>
-                    </div>
-                </div>
-                <div class="collage-item">
-                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=800" alt="Upacara" class="collage-img">
-                    <div class="collage-overlay">
-                        <span class="text-[10px] font-black uppercase tracking-widest text-amber-400">Ceremony</span>
-                        <h4 class="font-bold text-sm">Upacara Bendera</h4>
-                    </div>
-                </div>
+            <!-- Dynamic Collage -->
+            <div id="collageGrid" class="collage-container">
+                <!-- Dimuat secara dinamis dari Sheets -->
             </div>
         </section>
 
@@ -539,7 +616,7 @@
                 <div class="message-card card-accent-amber p-6 md:p-10">
                     <h3 class="text-xl md:text-2xl font-black text-slate-900 mb-3 tracking-tight">Jaga Nama Baik</h3>
                     <p class="text-slate-500 leading-relaxed text-sm md:text-base font-medium">
-                        Di mana pun kalian berpijak nanti, bawalah nilai-nilai luhur dan budi pekerti yang telah diajarkan guru-gurumu. Jadilah kebanggaan almamater.
+                        Di mana pun kalian berpijak nanti, bawalah nilai-nilai luhur dan budi peti yang telah diajarkan guru-gurumu. Jadilah kebanggaan almamater.
                     </p>
                 </div>
             </div>
@@ -561,10 +638,77 @@
     </div>
 
     <script>
+        // =========================================================================
+        // MASUKKAN ID PUBLIKASI SPREADSHEET DAN GID MASING-MASING TAB DI SINI, BOS!
+        // =========================================================================
         const PUB_ID = '2PACX-1vQlE7FP-TRJCllgdmxhGSkQf3nSg4QNgn0Q7QvbrYlAw9UVeijdjAb3cK4cjZxxBP21Hp8s4RAksKqo';
-        const CSV_URL = `https://docs.google.com/spreadsheets/d/e/${PUB_ID}/pub?output=csv`;
+        
+        const GID_SISWA  = '1535745313'; // GID tab Siswa Anda
+        const GID_GURU   = '1520634694'; // GID tab Guru Anda
+        const GID_GALERI = '490837044';  // GID tab Galeri Anda
+
+        const CSV_URL_SISWA  = `https://docs.google.com/spreadsheets/d/e/${PUB_ID}/pub?gid=${GID_SISWA}&single=true&output=csv`;
+        const CSV_URL_GURU   = `https://docs.google.com/spreadsheets/d/e/${PUB_ID}/pub?gid=${GID_GURU}&single=true&output=csv`;
+        const CSV_URL_GALERI = `https://docs.google.com/spreadsheets/d/e/${PUB_ID}/pub?gid=${GID_GALERI}&single=true&output=csv`;
 
         let students = [];
+        let teachers = [];
+        let galleryItems = [];
+
+        // Fallback Mock Data seandainya tab Guru atau Galeri belum Bos isi di Google Sheets
+        const defaultTeachers = [
+            { nama: "Hj. Tintin Kartini, S.Pd.", jabatan: "Kepala Sekolah", foto: "https://placehold.co/300x360/f1f5f9/0f172a?text=Kepala+Sekolah" },
+            { nama: "Maman Budiman, S.Pd.", jabatan: "Wali Kelas 6", foto: "https://placehold.co/300x360/f1f5f9/0f172a?text=Wali+Kelas" },
+            { nama: "Siti Rahmawati, S.Pd.I", jabatan: "Guru PAI", foto: "https://placehold.co/300x360/f1f5f9/0f172a?text=Guru+PAI" },
+            { nama: "Dadan Ramdani, S.Pd.", jabatan: "Guru PJOK", foto: "https://placehold.co/300x360/f1f5f9/0f172a?text=Guru+PJOK" }
+        ];
+
+        const defaultGallery = [
+            { keterangan: "Hari Kelulusan", kategori: "big", foto: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=800" },
+            { keterangan: "Waktu Istirahat Sekolah", kategori: "tall", foto: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80&w=800" },
+            { keterangan: "Di Dalam Ruang Kelas", kategori: "normal", foto: "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=800" },
+            { keterangan: "Momen Persahabatan", kategori: "wide", foto: "https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?auto=format&fit=crop&q=80&w=800" },
+            { keterangan: "Upacara Hari Senin", kategori: "normal", foto: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=800" }
+        ];
+
+        // Generator Kesan & Pesan secara deterministik berdasarkan Nama/NIS agar konsisten saat diklik ulang
+        function generateKesanPesan(nama, nis) {
+            const listKesan = [
+                "Enam tahun di SDN 1 Tanjungkarya adalah perjalanan terindah. Belajar di bawah bimbingan guru hebat memberikan saya impian setinggi langit. Terima kasih, almamater tercinta!",
+                "Sekolah ini seperti rumah kedua bagi saya. Teman-teman yang asyik dan guru yang penyabar membuat setiap hari penuh tawa. Semoga kita semua sukses di jenjang SMP!",
+                "Terima kasih guru-guruku atas ilmu, didikan, serta kesabaran yang tak terhingga. Saya berjanji akan menjaga nama baik sekolah ini di mana pun saya berada.",
+                "Banyak kenangan indah yang terukir di sini, mulai dari belajar kelompok hingga tawa riang saat istirahat. Selamat berjuang kawan-kawanku kelas 6!",
+                "SDN 1 Tanjungkarya telah melukis warna-warna cerah di lembar masa kecil saya. Terima kasih bapak/ibu guru, jasa kalian takkan pernah tergantikan.",
+                "Perpisahan ini bukanlah akhir dari persahabatan kita. Mari kita kejar cita-cita kita dengan penuh semangat. Terima kasih guruku, bimbinganmu abadi."
+            ];
+            
+            // Sederhana Hash dari nama/nis
+            let hash = 0;
+            const combinedStr = nama + nis;
+            for (let i = 0; i < combinedStr.length; i++) {
+                hash = combinedStr.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            const index = Math.abs(hash) % listKesan.length;
+            return listKesan[index];
+        }
+
+        // Generator pesan motivasi guru
+        function generateMotivasiGuru(nama) {
+            const listMotivasi = [
+                "Gantungkan cita-citamu setinggi langit anakku, bila engkau jatuh engkau akan jatuh di antara bintang-bintang. Jangan pernah lelah belajar!",
+                "Keberhasilan tidak diukur dari seberapa pintar dirimu, melainkan dari seberapa tangguh engkau bangkit kembali dari setiap kegagalan.",
+                "Jadilah seperti padi, semakin berisi semakin merunduk. Jagalah selalu sopan santun dan budi pekertimu di mana pun engkau melangkah.",
+                "Belajar adalah ibadah yang paling indah. Teruslah membaca dan mencari ilmu baru, pintu gerbang kesuksesan terbuka lebar untukmu.",
+                "Kalian adalah generasi emas bangsa. Jadilah pribadi yang jujur dan selalu menebar kebaikan di manapun. Doa ibu/bapak guru menyertaimu selalu."
+            ];
+            
+            let hash = 0;
+            for (let i = 0; i < nama.length; i++) {
+                hash = nama.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            const index = Math.abs(hash) % listMotivasi.length;
+            return listMotivasi[index];
+        }
 
         function scrollToSection(id) {
             const element = document.getElementById(id);
@@ -674,8 +818,10 @@
 
         async function init() {
             createBubbles();
+            
+            // 1. Ambil data Siswa
             try {
-                const response = await fetch(CSV_URL);
+                const response = await fetch(CSV_URL_SISWA);
                 const csvData = await response.text();
                 const rows = parseCSV(csvData);
 
@@ -699,7 +845,100 @@
                 if (sessionStorage.getItem('isLoggedIn') === 'true') {
                     showPortal(JSON.parse(sessionStorage.getItem('userData')));
                 }
-            } catch (err) { console.error(err); }
+            } catch (err) { 
+                console.error("Error memuat data siswa:", err); 
+            }
+
+            // 2. Ambil data Guru (Menggunakan try-catch, jika gagal/kosong pakai defaultTeachers)
+            try {
+                const response = await fetch(CSV_URL_GURU);
+                if (response.ok) {
+                    const csvData = await response.text();
+                    const rows = parseCSV(csvData);
+                    const parsedTeachers = rows.slice(1)
+                        .filter(row => row[1] && row[1].toLowerCase() !== 'nama')
+                        .map(row => ({
+                            nama: row[1],
+                            jabatan: row[2] || 'Staff Pengajar',
+                            foto: formatDriveImage(row[3])
+                        }));
+                    teachers = parsedTeachers.length > 0 ? parsedTeachers : defaultTeachers;
+                } else {
+                    teachers = defaultTeachers;
+                }
+            } catch (err) {
+                console.warn("Gagal terhubung ke GID Guru, menggunakan data bawaan.");
+                teachers = defaultTeachers;
+            }
+            
+            // Set Principal Avatar jika ada di guru data
+            const principal = teachers.find(t => t.jabatan.toLowerCase().includes("kepala"));
+            if (principal) {
+                document.getElementById('principalAvatar').src = principal.foto;
+            }
+            
+            renderTeachers(teachers);
+
+            // 3. Ambil data Galeri (Menggunakan try-catch, jika gagal/kosong pakai defaultGallery)
+            try {
+                const response = await fetch(CSV_URL_GALERI);
+                if (response.ok) {
+                    const csvData = await response.text();
+                    const rows = parseCSV(csvData);
+                    const parsedGallery = rows.slice(1)
+                        .filter(row => row[3]) // pastikan ada foto
+                        .map(row => ({
+                            keterangan: row[1] || 'Momen Kenangan',
+                            kategori: (row[2] || 'normal').toLowerCase(),
+                            foto: formatDriveImage(row[3])
+                        }));
+                    galleryItems = parsedGallery.length > 0 ? parsedGallery : defaultGallery;
+                } else {
+                    galleryItems = defaultGallery;
+                }
+            } catch (err) {
+                console.warn("Gagal terhubung ke GID Galeri, menggunakan data bawaan.");
+                galleryItems = defaultGallery;
+            }
+            renderGallery(galleryItems);
+        }
+
+        function renderTeachers(data) {
+            const grid = document.getElementById('guruGrid');
+            grid.innerHTML = '';
+            data.forEach((g) => {
+                const encodedData = encodeURIComponent(JSON.stringify(g));
+                grid.innerHTML += `
+                    <div class="bg-slate-50 border border-slate-100 rounded-[24px] p-3 text-center shadow-sm hover:shadow-md transition-all hover:-translate-y-1 cursor-pointer" onclick="openTeacherZoom('${encodedData}')">
+                        <div class="aspect-square rounded-2xl overflow-hidden mb-3 bg-slate-200">
+                            <img src="${g.foto}" alt="${g.nama}" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(g.nama)}&background=0f172a&color=fff&size=256&bold=true'">
+                        </div>
+                        <h4 class="text-xs md:text-sm font-black text-slate-800 line-clamp-1 uppercase px-1">${g.nama}</h4>
+                        <p class="text-[9px] font-bold text-blue-600 uppercase tracking-widest mt-1">${g.jabatan}</p>
+                    </div>
+                `;
+            });
+        }
+
+        function renderGallery(data) {
+            const grid = document.getElementById('collageGrid');
+            grid.innerHTML = '';
+            data.forEach(item => {
+                let sizeClass = '';
+                if (item.kategori === 'big') sizeClass = 'big';
+                else if (item.kategori === 'tall') sizeClass = 'tall';
+                else if (item.kategori === 'wide') sizeClass = 'wide';
+
+                grid.innerHTML += `
+                    <div class="collage-item ${sizeClass}">
+                        <img src="${item.foto}" alt="${item.keterangan}" class="collage-img" onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=Momen+Kenangan'">
+                        <div class="collage-overlay">
+                            <span class="text-[9px] font-black uppercase tracking-widest text-amber-400">Memory SDN 1</span>
+                            <h4 class="font-bold text-xs md:text-sm line-clamp-2">${item.keterangan}</h4>
+                        </div>
+                    </div>
+                `;
+            });
         }
 
         function renderCards(data) {
@@ -741,9 +980,13 @@
             document.getElementById('zoomedImage').src = s.foto;
             document.getElementById('modalNama').innerText = s.nama;
             document.getElementById('modalNIS').innerText = s.nis;
+            
+            // Set dynamic Kesan & Pesan
+            document.getElementById('modalKesan').innerText = `"${generateKesanPesan(s.nama, s.nis)}"`;
+
             const badge = document.getElementById('modalGenderBadge');
             badge.innerText = isLaki ? 'Laki-laki' : 'Perempuan';
-            badge.className = `px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest text-white ${isLaki ? 'bg-blue-600' : 'bg-pink-600'}`;
+            badge.className = `px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest text-white shadow-sm ${isLaki ? 'bg-blue-600' : 'bg-pink-600'}`;
             overlay.classList.remove('hidden');
             overlay.classList.add('flex');
             setTimeout(() => { overlay.style.opacity = "1"; overlay.classList.add('active'); }, 10);
@@ -752,6 +995,30 @@
 
         function closeZoom() {
             const overlay = document.getElementById('zoomOverlay');
+            overlay.style.opacity = "0";
+            overlay.classList.remove('active');
+            setTimeout(() => { overlay.classList.add('hidden'); overlay.classList.remove('flex'); }, 300);
+            document.body.style.overflow = "auto";
+        }
+
+        function openTeacherZoom(teacherDataEncoded) {
+            const t = JSON.parse(decodeURIComponent(teacherDataEncoded));
+            const overlay = document.getElementById('teacherOverlay');
+            document.getElementById('teacherZoomedImage').src = t.foto;
+            document.getElementById('modalTeacherNama').innerText = t.nama;
+            document.getElementById('modalTeacherJabatan').innerText = t.jabatan;
+            
+            // Set dynamic motivational message
+            document.getElementById('modalTeacherMotivasi').innerText = `"${generateMotivasiGuru(t.nama)}"`;
+
+            overlay.classList.remove('hidden');
+            overlay.classList.add('flex');
+            setTimeout(() => { overlay.style.opacity = "1"; overlay.classList.add('active'); }, 10);
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeTeacherZoom() {
+            const overlay = document.getElementById('teacherOverlay');
             overlay.style.opacity = "0";
             overlay.classList.remove('active');
             setTimeout(() => { overlay.classList.add('hidden'); overlay.classList.remove('flex'); }, 300);
