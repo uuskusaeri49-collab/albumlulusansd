@@ -20,7 +20,6 @@
             overflow-x: hidden;
         }
 
-        /* Login Overlay Styles */
         #loginOverlay {
             background: rgba(15, 23, 42, 0.4);
             backdrop-filter: blur(4px);
@@ -39,15 +38,13 @@
             margin-top: 2rem;
         }
 
-        /* Navbar Glassmorphism */
         .glass-nav {
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        /* Animated Banner */
         .hero-section {
             background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #3b82f6 100%);
             position: relative;
@@ -91,54 +88,53 @@
             font-family: 'Dancing Script', cursive;
         }
 
-        /* Card Theme */
         .student-card {
             background: white;
-            border-radius: 32px;
-            padding: 1rem;
-            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            border: 2px solid #f1f5f9;
-            box-shadow: 0 10px 20px -10px rgba(0,0,0,0.05);
+            border-radius: 28px;
+            padding: 0.875rem;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid #f1f5f9;
+            box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.03), 0 2px 8px -1px rgba(15, 23, 42, 0.02);
             cursor: pointer;
         }
 
         .student-card:hover {
-            transform: translateY(-12px) rotate(1deg);
-            box-shadow: 0 30px 40px -15px rgba(15, 23, 42, 0.15);
+            transform: translateY(-8px) rotate(0.5deg);
+            box-shadow: 0 20px 35px -10px rgba(15, 23, 42, 0.12), 0 10px 20px -5px rgba(15, 23, 42, 0.06);
             border-color: #3b82f6;
         }
 
         .photo-wrapper {
             width: 100%;
             aspect-ratio: 1/1.2;
-            border-radius: 24px;
+            border-radius: 20px;
             overflow: hidden;
             background-color: #f8fafc;
             position: relative;
-            border: 4px solid #fff;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border: 3px solid #fff;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
         }
 
         .img-contain {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.6s ease;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             user-select: none;
             -webkit-user-drag: none;
         }
 
         .student-card:hover .img-contain {
-            transform: scale(1.1);
+            transform: scale(1.08);
         }
 
         .gender-tag {
             position: absolute;
-            bottom: 12px;
-            left: 12px;
-            padding: 4px 12px;
+            bottom: 10px;
+            left: 10px;
+            padding: 4px 10px;
             border-radius: 100px;
-            font-size: 9px;
+            font-size: 8px;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -151,13 +147,16 @@
 
         .id-badge {
             background: #f8fafc;
-            border-radius: 12px;
+            border-radius: 14px;
             padding: 10px;
             border: 1px dashed #cbd5e1;
             margin-top: 0.75rem;
+            transition: background 0.3s ease;
+        }
+        .student-card:hover .id-badge {
+            background: #f0f7ff;
         }
 
-        /* Custom Grid - Responsive Optimized */
         .custom-grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -167,15 +166,87 @@
         @media (min-width: 1024px) { .custom-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.75rem; } }
         @media (min-width: 1280px) { .custom-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1.75rem; } }
 
-        /* Lightbox Style with Scrollable Modal for Mobile */
+        .collage-container {
+            column-count: 1;
+            column-gap: 1.25rem;
+        }
+        @media (min-width: 640px) { .collage-container { column-count: 2; } }
+        @media (min-width: 1024px) { .collage-container { column-count: 3; } }
+
+        .collage-item {
+            break-inside: avoid;
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            margin-bottom: 1.25rem;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            background: #f8fafc;
+        }
+
+        .collage-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 30px rgba(15,23,42,0.15);
+        }
+
+        .collage-img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .collage-item:hover .collage-img {
+            transform: scale(1.05);
+        }
+
+        .collage-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(15,23,42,0.95) 0%, rgba(15,23,42,0.4) 60%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
+            color: white;
+            z-index: 15;
+        }
+
+        .collage-item:hover .collage-overlay {
+            opacity: 1;
+        }
+
+        /* BUTTERY-SMOOTH CINEMATIC CROSS-FADE TRANSITION */
+        .slide-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .slide-img.active {
+            opacity: 1;
+            transform: scale(1);
+            z-index: 10;
+        }
+        .slide-img.inactive {
+            opacity: 0;
+            transform: scale(1.04); /* Soft zoom-in to blend out elegantly */
+            z-index: 0;
+        }
+
         #zoomOverlay, #teacherOverlay {
             transition: all 0.3s ease;
-            backdrop-filter: blur(8px);
-            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            background: rgba(15, 23, 42, 0.65);
         }
         .modal-content {
             transform: scale(0.95);
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
             border: 1px solid rgba(255, 255, 255, 0.6);
             max-height: 90vh;
@@ -185,20 +256,19 @@
             transform: scale(1);
         }
 
-        /* Toga Cap Badge */
         .toga-overlay-badge {
             position: absolute;
-            top: 12px;
-            right: 12px;
+            top: 14px;
+            right: 14px;
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             color: #fbbf24;
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             z-index: 20;
             border: 2px solid white;
         }
@@ -207,72 +277,10 @@
             cursor: pointer;
         }
         
-        /* Collage Styles */
-        .collage-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            grid-auto-rows: 180px;
-            grid-auto-flow: dense;
-            gap: 1rem;
-        }
-
-        .collage-item {
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.5s ease;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .collage-item:hover {
-            transform: scale(1.02);
-            z-index: 10;
-            box-shadow: 0 20px 30px rgba(0,0,0,0.2);
-        }
-
-        .collage-item.wide { grid-column: span 2; }
-        .collage-item.tall { grid-row: span 2; }
-        .collage-item.big { grid-column: span 2; grid-row: span 2; }
-
-        @media (max-width: 640px) {
-            .collage-item.wide, .collage-item.big { grid-column: span 1; }
-            .collage-container { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        .collage-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.8s ease;
-        }
-
-        .collage-item:hover .collage-img {
-            transform: scale(1.1);
-        }
-
-        .collage-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(15,23,42,0.8) 0%, transparent 60%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 1.5rem;
-            color: white;
-        }
-
-        .collage-item:hover .collage-overlay {
-            opacity: 1;
-        }
-
         .logo-img {
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
         }
 
-        /* Motivation Section Styles */
         .motivation-gradient {
             background: linear-gradient(to bottom, #ffffff, #f1f5f9, #e2e8f0);
         }
@@ -280,24 +288,23 @@
             font-family: 'Playfair Display', serif;
         }
 
-        /* Message Cards Style */
         .message-card {
             background: white;
-            border-radius: 40px;
+            border-radius: 36px;
             padding: 2.5rem;
-            box-shadow: 0 15px 35px -10px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 30px -10px rgba(15,23,42,0.04);
             position: relative;
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid #f1f5f9;
         }
         .message-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 25px 50px -15px rgba(0,0,0,0.08);
+            transform: translateY(-6px);
+            box-shadow: 0 25px 45px -12px rgba(15,23,42,0.08);
         }
         .card-accent-blue { border-top: 8px solid #2563eb; }
         .card-accent-amber { border-top: 8px solid #fbbf24; }
 
-        /* Shake animation */
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
             25% { transform: translateX(-10px); }
@@ -316,28 +323,42 @@
         }
         .toggle-password:hover { color: white; }
         
-        /* Utility for touch screen friendly buttons */
         .btn-touch { min-height: 44px; min-width: 44px; display: flex; align-items: center; justify-content: center; }
+
+        .nav-active {
+            color: #fbbf24 !important;
+            border-bottom: 2px solid #fbbf24;
+            padding-bottom: 2px;
+        }
+
+        .portal-section {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 1;
+        }
+        .portal-section.hidden {
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+        }
     </style>
 </head>
 <body class="antialiased text-slate-900 bg-slate-900">
 
-    <!-- Header Section -->
     <header id="beranda" class="hero-section text-white px-6 text-center">
         <div class="floating-bubbles" id="bubblesContainer"></div>
         <div class="hero-content max-w-6xl mx-auto flex flex-col items-center">
             
-            <img src="https://lh3.googleusercontent.com/d/1OK6qeJOGbMzz3mK8XQEMyc_cD4J0OY2d" alt="SDN 1 Tanjungkarya" class="w-16 h-16 md:w-20 md:h-20 mx-auto mb-6 md:mb-8 object-contain logo-img">
+            <img src="https://lh3.googleusercontent.com/d/1OK6qeJOGbMzz3mK8XQEMyc_cD4J0OY2d" alt="SDN 1 Tanjungkarya" class="w-20 h-20 mx-auto mb-6 object-contain logo-img">
             
             <div class="inline-flex items-center bg-amber-400/20 backdrop-blur-xl px-5 py-2 rounded-full text-amber-300 text-[10px] font-black uppercase tracking-[0.3em] mb-6 border border-amber-400/30">
                 Memori Abadi Kelas 6
             </div>
             
-            <h1 class="text-3xl md:text-7xl font-black mb-4 tracking-tighter leading-none px-4">
+            <h1 class="text-4xl md:text-7xl font-black mb-4 tracking-tighter leading-none px-4">
                 Jejak Bakti <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-white to-blue-200">Alumni 2026</span>
             </h1>
             
-            <div class="cursive-font text-xl md:text-4xl text-amber-200/90 mb-8 opacity-90 px-4">
+            <div class="cursive-font text-2xl md:text-4xl text-amber-200/90 mb-8 opacity-90 px-4">
                 "Berpisah untuk berjuang, bertemu untuk mengenang."
             </div>
 
@@ -360,7 +381,7 @@
                 </div>
             </div>
 
-            <!-- Search bar -->
+            <!-- Search bar (Only displays in Alumni tab) -->
             <div id="searchContainer" class="hidden w-full max-w-2xl mx-auto mt-8 relative group px-4">
                 <div class="absolute inset-y-0 left-4 pl-6 flex items-center pointer-events-none">
                     <i class="fas fa-search text-blue-400 text-lg group-focus-within:scale-110 transition-transform"></i>
@@ -373,35 +394,35 @@
         </div>
     </header>
 
-    <!-- Main Content Container -->
-    <div id="mainContent" class="hidden opacity-0 transition-opacity duration-1000 bg-white">
-        <!-- Navigasi Atas -->
+    <div id="mainContent" class="hidden opacity-0 transition-opacity duration-1000 bg-white pb-20">
+        <!-- Top Navigation -->
         <nav class="glass-nav fixed top-0 left-0 right-0 z-[60] py-3 px-4 md:px-6">
             <div class="max-w-7xl mx-auto flex items-center justify-between">
                 <div class="flex items-center gap-2 md:gap-3">
-                    <img src="https://lh3.googleusercontent.com/d/1OK6qeJOGbMzz3mK8XQEMyc_cD4J0OY2d" alt="Logo Sekolah" class="w-8 h-8 md:w-10 md:h-10 object-contain logo-img">
-                    <span class="font-black text-white text-[10px] md:text-sm tracking-tighter uppercase hidden xs:block">SDN 1 Tanjungkarya</span>
+                    <img src="https://lh3.googleusercontent.com/d/1OK6qeJOGbMzz3mK8XQEMyc_cD4J0OY2d" alt="Logo Sekolah" class="w-9 h-9 object-contain logo-img">
+                    <span class="font-black text-white text-[11px] md:text-sm tracking-tighter uppercase hidden xs:block">SDN 1 Tanjungkarya</span>
                 </div>
                 
                 <div class="flex items-center gap-3 md:gap-8">
                     <div id="userBadge" class="hidden items-center gap-2 md:gap-3 pr-2 md:pr-4 border-r border-white/10">
                         <div class="text-right hidden sm:block">
-                            <p class="text-[8px] font-black text-amber-400 uppercase tracking-widest">Halo!</p>
+                            <p class="text-[8px] font-black text-amber-400 uppercase tracking-widest font-mono">AKTIF</p>
                             <p id="userNameDisplay" class="text-[9px] font-black text-white uppercase tracking-tighter truncate max-w-[80px] md:max-w-[120px]"></p>
                         </div>
-                        <img id="userPhotoDisplay" src="" alt="User" class="w-7 h-7 md:w-8 md:h-8 rounded-full border-2 border-amber-400 object-cover bg-slate-800">
+                        <img id="userPhotoDisplay" src="" alt="User" class="w-8 h-8 rounded-full border-2 border-amber-400 object-cover bg-slate-800">
                     </div>
 
-                    <div onclick="scrollToSection('sambutan')" class="nav-link text-[9px] md:text-[10px] font-black text-white hover:text-amber-400 uppercase tracking-widest transition-colors">Sambutan</div>
-                    <div onclick="scrollToSection('guru')" class="nav-link text-[9px] md:text-[10px] font-black text-white hover:text-amber-400 uppercase tracking-widest transition-colors">Guru</div>
-                    <div onclick="scrollToSection('galeri')" class="nav-link text-[9px] md:text-[10px] font-black text-white hover:text-amber-400 uppercase tracking-widest transition-colors">Galeri</div>
-                    <div onclick="scrollToSection('alumni')" class="nav-link text-[9px] md:text-[10px] font-black text-white hover:text-amber-400 uppercase tracking-widest transition-colors">Alumni</div>
+                    <div id="navLinkSambutan" onclick="switchSection('sambutan')" class="nav-link nav-active text-[9px] md:text-[10px] font-black text-white hover:text-amber-400 uppercase tracking-widest transition-colors">Sambutan</div>
+                    <div id="navLinkGuru" onclick="switchSection('guru')" class="nav-link text-[9px] md:text-[10px] font-black text-white hover:text-amber-400 uppercase tracking-widest transition-colors">Guru</div>
+                    <div id="navLinkAlumni" onclick="switchSection('alumni')" class="nav-link text-[9px] md:text-[10px] font-black text-white hover:text-amber-400 uppercase tracking-widest transition-colors">Alumni</div>
+                    <div id="navLinkGaleri" onclick="switchSection('galeri')" class="nav-link text-[9px] md:text-[10px] font-black text-white hover:text-amber-400 uppercase tracking-widest transition-colors">Galeri</div>
+                    <div id="navLinkProfil" onclick="switchSection('profil')" class="nav-link text-[9px] md:text-[10px] font-black text-amber-400 hover:text-white uppercase tracking-widest transition-colors"><i class="fas fa-user-circle mr-1"></i>Profil Saya</div>
                     <div onclick="logout()" class="nav-link text-[10px] font-black text-red-400 hover:text-white uppercase tracking-widest transition-colors btn-touch"><i class="fas fa-sign-out-alt"></i></div>
                 </div>
             </div>
         </nav>
 
-        <!-- Modal Detail Profil (Siswa) -->
+        <!-- Modal Detail Profil (Alumni) -->
         <div id="zoomOverlay" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 opacity-0 cursor-zoom-out" onclick="closeZoom()">
             <div class="modal-content max-w-2xl w-full rounded-[32px] shadow-2xl relative flex flex-col md:flex-row p-5 md:p-8 gap-6 md:gap-8" onclick="event.stopPropagation()">
                 <div class="w-full md:w-2/5 aspect-[1/1.2] bg-slate-100 rounded-2xl overflow-hidden shrink-0 relative">
@@ -433,7 +454,6 @@
                                     <p class="text-blue-600 text-base md:text-lg font-black tracking-tighter">2026</p>
                                 </div>
                             </div>
-                            <!-- Kesan dan Pesan Siswa -->
                             <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-2xl border border-blue-100/50 mt-2">
                                 <p class="text-[9px] font-black text-blue-500 uppercase tracking-[0.2em] mb-1.5"><i class="fas fa-quote-left mr-1"></i> Kesan & Pesan Alumni</p>
                                 <p id="modalKesan" class="text-slate-700 text-xs md:text-sm italic font-medium leading-relaxed"></p>
@@ -477,7 +497,6 @@
                                 <p class="text-[9px] font-black text-amber-600 uppercase tracking-[0.2em] mb-1">Jabatan / Peran</p>
                                 <p id="modalTeacherJabatan" class="text-slate-800 text-sm md:text-base font-bold"></p>
                             </div>
-                            <!-- Kata Motivasi Guru -->
                             <div class="bg-gradient-to-r from-amber-50 to-orange-50 p-4 rounded-2xl border border-amber-100/50 mt-2">
                                 <p class="text-[9px] font-black text-amber-600 uppercase tracking-[0.2em] mb-1.5"><i class="fas fa-feather-alt mr-1"></i> Pesan & Motivasi Guru</p>
                                 <p id="modalTeacherMotivasi" class="text-slate-700 text-xs md:text-sm italic font-medium leading-relaxed"></p>
@@ -495,9 +514,10 @@
             </div>
         </div>
 
-        <!-- Sambutan Kepala Sekolah Section -->
-        <section id="sambutan" class="max-w-5xl mx-auto px-4 pt-24 mb-16 scroll-mt-24">
-            <div class="bg-gradient-to-br from-slate-900 to-indigo-950 rounded-[40px] p-6 md:p-12 text-white shadow-2xl relative overflow-hidden flex flex-col md:flex-row gap-8 items-center">
+        <!-- VIEW 1: Sambutan & Motivasi (Active by Default) -->
+        <div id="section-sambutan" class="portal-section max-w-5xl mx-auto px-4 pt-24 pb-12">
+            <!-- Sambutan Kepala Sekolah Card -->
+            <div class="bg-gradient-to-br from-slate-900 to-indigo-950 rounded-[40px] p-6 md:p-12 text-white shadow-2xl relative overflow-hidden flex flex-col md:flex-row gap-8 items-center mb-16">
                 <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(59,130,246,0.15),transparent)]"></div>
                 <div class="w-36 h-36 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-amber-400 shrink-0 shadow-lg relative z-10 bg-slate-800">
                     <img src="https://placehold.co/300x300/1e293b/fbbf24?text=Kepala+Sekolah" id="principalAvatar" alt="H. Agus Saepudin, S.Pd." class="w-full h-full object-cover">
@@ -510,18 +530,47 @@
                         Selamat Berjuang, <span class="text-amber-300">Anak-anakku!</span>
                     </h2>
                     <p class="text-slate-300 text-sm md:text-base font-medium leading-relaxed mb-6 italic">
-                        "Enam tahun penuh canda, tawa, dan perjuangan di SDN 1 Tanjungkarya telah membentuk pondasi kokoh bagi masa depan kalian. Kelulusan ini bukanlah titik akhir, melainkan awal dari mimpi besar yang sesungguhnya. Tetaplah menjadi anak yang berbakti, tekun belajar, dan jaga nama baik almamater di mana pun kalian melangkah."
+                        "Enam tahun penuh canda, tawa, dan perjuangan di SDN 1 Tanjungkarya telah membentuk pondasi kokoh bagi masa depan kalian. Kelulusan ini bukanlah titik akhir, melainkan awal dari mimpi besar yang sesungguhnya. Jaga nama baik almamater di mana pun kalian melangkah."
                     </p>
                     <div>
-                        <p class="font-black text-amber-300 uppercase tracking-wider text-xs md:text-sm">H. Agus Saepudin, S.Pd.</p>
+                        <p class="font-black text-amber-300 tracking-wider text-xs md:text-sm uppercase">H. Agus Saepudin, S.Pd.</p>
                         <p class="text-[9px] md:text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Kepala Sekolah SDN 1 Tanjungkarya</p>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <!-- Guru Section -->
-        <section id="guru" class="max-w-7xl mx-auto px-4 mb-16 scroll-mt-24">
+            <!-- Ki Hajar Dewantara Quote Section -->
+            <div class="motivation-gradient rounded-[40px] p-8 md:p-16 text-center relative overflow-hidden shadow-sm border border-slate-100 mb-16">
+                <i class="fas fa-quote-left text-slate-200 text-6xl md:text-8xl absolute -top-8 left-0 -z-10 opacity-40"></i>
+                <div class="text-blue-600 text-[10px] font-black uppercase tracking-[0.5em] mb-4">Amanat Pendidikan</div>
+                <h2 class="quote-font text-xl md:text-4xl italic text-slate-800 leading-relaxed mb-6 px-4">
+                    "Lawan Sastra Ngesti Mulya"
+                </h2>
+                <div class="w-16 h-1 bg-amber-400 mx-auto mb-6"></div>
+                <p class="text-slate-600 text-base md:text-xl font-medium leading-relaxed italic px-4">
+                    "Dengan ilmu kita menuju kemuliaan. Anak-anakku, setiap orang menjadi guru, setiap rumah menjadi sekolah. Jangan pernah lelah untuk belajar."
+                </p>
+                <p class="mt-6 font-black text-slate-900 uppercase tracking-widest text-[10px] md:text-xs">— Ki Hajar Dewantara</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                <div class="message-card card-accent-blue p-6 md:p-10">
+                    <h3 class="text-xl md:text-2xl font-black text-slate-900 mb-3 tracking-tight">Terus Melangkah</h3>
+                    <p class="text-slate-500 leading-relaxed text-sm md:text-base font-medium">
+                        Kelulusan dari SDN 1 Tanjungkarya bukanlah akhir, melainkan gerbang awal menuju petualangan yang lebih besar. SMP menantimu dengan ilmu-ilmu baru.
+                    </p>
+                </div>
+                <div class="message-card card-accent-amber p-6 md:p-10">
+                    <h3 class="text-xl md:text-2xl font-black text-slate-900 mb-3 tracking-tight">Jaga Nama Baik</h3>
+                    <p class="text-slate-500 leading-relaxed text-sm md:text-base font-medium">
+                        Di mana pun kalian berpijak nanti, bawalah nilai-nilai luhur dan budi peti yang telah diajarkan guru-gurumu. Jadilah kebanggaan almamater.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 2: Guru Section (Hidden by Default) -->
+        <div id="section-guru" class="portal-section max-w-7xl mx-auto px-4 pt-24 pb-12 hidden">
             <div class="text-center md:text-left mb-8">
                 <div class="text-blue-600 text-[10px] font-black uppercase tracking-[0.4em] mb-2">Pendidik Hebat</div>
                 <h2 class="text-3xl md:text-5xl font-black text-slate-800 tracking-tighter">Profil <span class="text-blue-600">Guru & Staff</span></h2>
@@ -531,10 +580,10 @@
             <div id="guruGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6">
                 <!-- Data guru dimuat secara dinamis dari Sheets / Fallback -->
             </div>
-        </section>
+        </div>
 
-        <!-- Alumni Grid Section -->
-        <main id="alumni" class="max-w-7xl mx-auto px-4 mb-12 relative z-20 scroll-mt-24">
+        <!-- VIEW 3: Alumni Section (Hidden by Default) -->
+        <div id="section-alumni" class="portal-section max-w-7xl mx-auto px-4 pt-24 pb-12 hidden">
             <div class="grid grid-cols-3 md:grid-cols-4 gap-3 md:gap-4 mb-8 md:mb-12">
                 <div class="bg-white p-4 md:p-6 rounded-[24px] md:rounded-[32px] shadow-xl text-center border-b-4 border-slate-200 transition-all hover:scale-105 cursor-pointer" onclick="filterByGender('ALL')">
                     <p class="text-slate-400 text-[8px] md:text-[9px] font-black uppercase tracking-widest mb-1">Total</p>
@@ -566,66 +615,35 @@
                 <p class="text-slate-400 font-black text-sm uppercase tracking-tight">Data tidak ditemukan</p>
                 <button onclick="resetSearch()" class="mt-4 px-6 py-2 bg-blue-600 text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-all shadow-lg">Lihat Semua</button>
             </div>
-        </main>
+        </div>
 
-        <!-- Galeri Section -->
-        <section id="galeri" class="max-w-7xl mx-auto px-4 mb-24 scroll-mt-24">
+        <!-- VIEW 4: Galeri Section (Hidden by Default) -->
+        <div id="section-galeri" class="portal-section max-w-7xl mx-auto px-4 pt-24 pb-12 hidden">
             <div class="flex flex-col md:flex-row items-end justify-between mb-8 md:mb-12 gap-4">
                 <div class="text-center md:text-left w-full md:w-auto">
                     <div class="text-blue-600 text-[10px] font-black uppercase tracking-[0.4em] mb-2">Momen Kebersamaan</div>
                     <h2 class="text-3xl md:text-5xl font-black text-slate-800 tracking-tighter">Galeri <span class="text-blue-600">Kenangan</span></h2>
                 </div>
                 <p class="text-slate-400 text-xs md:text-sm font-medium max-w-xs md:text-right italic mx-auto md:mx-0 text-center md:text-right">
-                    Potret kebersamaan yang tersusun dalam bentuk kolase artistik.
+                    Potret kebersamaan yang tersusun artistik langsung dari database sekolah Anda.
                 </p>
             </div>
             
-            <!-- Dynamic Collage -->
+            <!-- Dynamic Collage (Slideshow-compatible) -->
             <div id="collageGrid" class="collage-container">
                 <!-- Dimuat secara dinamis dari Sheets -->
             </div>
-        </section>
+        </div>
 
-        <!-- Motivation Section -->
-        <section class="motivation-gradient pt-16 pb-12 px-6 overflow-hidden">
-            <div class="max-w-4xl mx-auto">
-                <div class="text-center relative">
-                    <i class="fas fa-quote-left text-slate-200 text-6xl md:text-8xl absolute -top-8 left-0 -z-10 opacity-40"></i>
-                    <div class="text-blue-600 text-[10px] font-black uppercase tracking-[0.5em] mb-4">Amanat Pendidikan</div>
-                    <h2 class="quote-font text-xl md:text-4xl italic text-slate-800 leading-relaxed mb-6 px-4">
-                        "Lawan Sastra Ngesti Mulya"
-                    </h2>
-                    <div class="w-16 h-1 bg-amber-400 mx-auto mb-6"></div>
-                    <p class="text-slate-600 text-base md:text-xl font-medium leading-relaxed italic px-4">
-                        "Dengan ilmu kita menuju kemuliaan. Anak-anakku, setiap orang menjadi guru, setiap rumah menjadi sekolah. Jangan pernah lelah untuk belajar."
-                    </p>
-                    <p class="mt-6 font-black text-slate-900 uppercase tracking-widest text-[10px] md:text-xs">— Ki Hajar Dewantara</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Message Cards Section -->
-        <section class="bg-slate-50 py-12 px-6">
-            <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-                <div class="message-card card-accent-blue p-6 md:p-10">
-                    <h3 class="text-xl md:text-2xl font-black text-slate-900 mb-3 tracking-tight">Terus Melangkah</h3>
-                    <p class="text-slate-500 leading-relaxed text-sm md:text-base font-medium">
-                        Kelulusan dari SDN 1 Tanjungkarya bukanlah akhir, melainkan gerbang awal menuju petualangan yang lebih besar. SMP menantimu dengan ilmu-ilmu baru.
-                    </p>
-                </div>
-                <div class="message-card card-accent-amber p-6 md:p-10">
-                    <h3 class="text-xl md:text-2xl font-black text-slate-900 mb-3 tracking-tight">Jaga Nama Baik</h3>
-                    <p class="text-slate-500 leading-relaxed text-sm md:text-base font-medium">
-                        Di mana pun kalian berpijak nanti, bawalah nilai-nilai luhur dan budi peti yang telah diajarkan guru-gurumu. Jadilah kebanggaan almamater.
-                    </p>
-                </div>
-            </div>
-        </section>
+        <!-- VIEW 5: Profil Saya (Eksklusif Personal) -->
+        <div id="section-profil" class="portal-section max-w-7xl mx-auto px-4 pt-24 pb-12 hidden">
+            <!-- Profil render dinamis via JS -->
+        </div>
 
         <!-- Footer -->
-        <footer class="bg-slate-900 text-white py-10 px-6 border-t border-white/5">
+        <footer class="bg-slate-900 text-white py-10 px-6 border-t border-white/5 mt-16">
             <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-3 mx-auto md:mx-0">
                     <img src="https://lh3.googleusercontent.com/d/1OK6qeJOGbMzz3mK8XQEMyc_cD4J0OY2d" alt="Logo" class="w-8 h-8 object-contain grayscale opacity-80">
                     <div class="text-left">
                         <h2 class="text-xs font-black uppercase tracking-tighter">SDN 1 Tanjungkarya</h2>
@@ -638,14 +656,11 @@
     </div>
 
     <script>
-        // =========================================================================
-        // MASUKKAN ID PUBLIKASI SPREADSHEET DAN GID MASING-MASING TAB DI SINI, BOS!
-        // =========================================================================
         const PUB_ID = '2PACX-1vQlE7FP-TRJCllgdmxhGSkQf3nSg4QNgn0Q7QvbrYlAw9UVeijdjAb3cK4cjZxxBP21Hp8s4RAksKqo';
         
-        const GID_SISWA  = '1535745313'; // GID tab Siswa Anda
-        const GID_GURU   = '1520634694'; // GID tab Guru Anda
-        const GID_GALERI = '490837044';  // GID tab Galeri Anda
+        const GID_SISWA  = '1535745313'; 
+        const GID_GURU   = '1520634694'; 
+        const GID_GALERI = '490837044';  
 
         const CSV_URL_SISWA  = `https://docs.google.com/spreadsheets/d/e/${PUB_ID}/pub?gid=${GID_SISWA}&single=true&output=csv`;
         const CSV_URL_GURU   = `https://docs.google.com/spreadsheets/d/e/${PUB_ID}/pub?gid=${GID_GURU}&single=true&output=csv`;
@@ -657,10 +672,10 @@
 
         // Fallback Mock Data seandainya tab Guru atau Galeri belum Bos isi di Google Sheets
         const defaultTeachers = [
-            { nama: "Hj. Tintin Kartini, S.Pd.", jabatan: "Kepala Sekolah", foto: "https://placehold.co/300x360/f1f5f9/0f172a?text=Kepala+Sekolah" },
-            { nama: "Maman Budiman, S.Pd.", jabatan: "Wali Kelas 6", foto: "https://placehold.co/300x360/f1f5f9/0f172a?text=Wali+Kelas" },
-            { nama: "Siti Rahmawati, S.Pd.I", jabatan: "Guru PAI", foto: "https://placehold.co/300x360/f1f5f9/0f172a?text=Guru+PAI" },
-            { nama: "Dadan Ramdani, S.Pd.", jabatan: "Guru PJOK", foto: "https://placehold.co/300x360/f1f5f9/0f172a?text=Guru+PJOK" }
+            { nama: "Hj. Tintin Kartini, S.Pd.", jabatan: "Kepala Sekolah", foto: "https://placehold.co/300x360/f1f5f9/0f172a?text=Kepala+Sekolah", motivasi: "Selamat berjuang anak-anakku, capailah mimpi kalian dengan bekal iman dan taqwa." },
+            { nama: "Maman Budiman, S.Pd.", jabatan: "Wali Kelas 6", foto: "https://placehold.co/300x360/f1f5f9/0f172a?text=Wali+Kelas", motivasi: "Teruslah melangkah dengan penuh keyakinan. Kejujuran adalah kunci kesuksesan kalian." },
+            { nama: "Siti Rahmawati, S.Pd.I", jabatan: "Guru PAI", foto: "https://placehold.co/300x360/f1f5f9/0f172a?text=Guru+PAI", motivasi: "Jadikan setiap langkah belajarmu sebagai ibadah, insyaAllah kemuliaan akan menyertaimu." },
+            { nama: "Dadan Ramdani, S.Pd.", jabatan: "Guru PJOK", foto: "https://placehold.co/300x360/f1f5f9/0f172a?text=Guru+PJOK", motivasi: "Di dalam tubuh yang sehat terdapat jiwa yang kuat. Tetaplah bersemangat dan pantang menyerah!" }
         ];
 
         const defaultGallery = [
@@ -671,7 +686,41 @@
             { keterangan: "Upacara Hari Senin", kategori: "normal", foto: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=800" }
         ];
 
-        // Generator Kesan & Pesan secara deterministik berdasarkan Nama/NIS agar konsisten saat diklik ulang
+        function switchSection(targetSectionId) {
+            // Sembunyikan semua section
+            document.querySelectorAll('.portal-section').forEach(section => {
+                section.classList.add('hidden');
+            });
+
+            // Tampilkan section target
+            const activeSection = document.getElementById(`section-${targetSectionId}`);
+            if (activeSection) {
+                activeSection.classList.remove('hidden');
+            }
+
+            // Atur gaya link aktif di navigasi
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('nav-active');
+            });
+
+            // Berikan penanda aktif pada navigasi yang sesuai
+            const activeNavLink = document.getElementById(`navLink${targetSectionId.charAt(0).toUpperCase() + targetSectionId.slice(1)}`);
+            if (activeNavLink) {
+                activeNavLink.classList.add('nav-active');
+            }
+
+            // Tampilkan kotak pencarian HANYA jika berada di halaman Alumni
+            const searchContainer = document.getElementById('searchContainer');
+            if (targetSectionId === 'alumni') {
+                searchContainer.classList.remove('hidden');
+            } else {
+                searchContainer.classList.add('hidden');
+            }
+
+            // Gulir kembali ke awal section agar pengguna tidak bingung
+            window.scrollTo({ top: 350, behavior: 'smooth' });
+        }
+
         function generateKesanPesan(nama, nis) {
             const listKesan = [
                 "Enam tahun di SDN 1 Tanjungkarya adalah perjalanan terindah. Belajar di bawah bimbingan guru hebat memberikan saya impian setinggi langit. Terima kasih, almamater tercinta!",
@@ -682,7 +731,6 @@
                 "Perpisahan ini bukanlah akhir dari persahabatan kita. Mari kita kejar cita-cita kita dengan penuh semangat. Terima kasih guruku, bimbinganmu abadi."
             ];
             
-            // Sederhana Hash dari nama/nis
             let hash = 0;
             const combinedStr = nama + nis;
             for (let i = 0; i < combinedStr.length; i++) {
@@ -692,29 +740,19 @@
             return listKesan[index];
         }
 
-        // Generator pesan motivasi guru
-        function generateMotivasiGuru(nama) {
+        function generateMotivasiGuru(nama, index = 0) {
             const listMotivasi = [
                 "Gantungkan cita-citamu setinggi langit anakku, bila engkau jatuh engkau akan jatuh di antara bintang-bintang. Jangan pernah lelah belajar!",
                 "Keberhasilan tidak diukur dari seberapa pintar dirimu, melainkan dari seberapa tangguh engkau bangkit kembali dari setiap kegagalan.",
                 "Jadilah seperti padi, semakin berisi semakin merunduk. Jagalah selalu sopan santun dan budi pekertimu di mana pun engkau melangkah.",
                 "Belajar adalah ibadah yang paling indah. Teruslah membaca dan mencari ilmu baru, pintu gerbang kesuksesan terbuka lebar untukmu.",
-                "Kalian adalah generasi emas bangsa. Jadilah pribadi yang jujur dan selalu menebar kebaikan di manapun. Doa ibu/bapak guru menyertaimu selalu."
+                "Kalian adalah generasi emas bangsa. Jadilah pribadi yang jujur dan selalu menebar kebaikan di manapun. Doa bapak/ibu guru menyertaimu selalu.",
+                "Pendidikan adalah tiket ke masa depan. Hari esok dimiliki oleh orang-orang yang mempersiapkan dirinya sejak hari ini.",
+                "Kesulitan yang kalian hadapi hari ini adalah proses yang akan membentuk kalian menjadi pribadi yang jauh lebih kuat besok."
             ];
             
-            let hash = 0;
-            for (let i = 0; i < nama.length; i++) {
-                hash = nama.charCodeAt(i) + ((hash << 5) - hash);
-            }
-            const index = Math.abs(hash) % listMotivasi.length;
-            return listMotivasi[index];
-        }
-
-        function scrollToSection(id) {
-            const element = document.getElementById(id);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
+            const selectedIdx = (index !== undefined && index >= 0) ? (index % listMotivasi.length) : (Math.abs(nama.length) % listMotivasi.length);
+            return listMotivasi[selectedIdx];
         }
 
         function createBubbles() {
@@ -734,9 +772,11 @@
         }
 
         function formatDriveImage(url) {
-            if (!url || !url.includes('drive.google.com')) return url;
-            const match = url.match(/\/file\/d\/([^\/?#]+)/) || url.match(/id=([^\/?#]+)/);
-            return match ? `https://lh3.googleusercontent.com/d/${match[1]}=s500` : url;
+            if (!url) return 'https://placehold.co/300x300/f1f5f9/0f172a?text=Foto';
+            const cleanUrl = url.trim();
+            if (!cleanUrl.includes('drive.google.com')) return cleanUrl;
+            const match = cleanUrl.match(/\/file\/d\/([^\/?#]+)/) || cleanUrl.match(/id=([^\/?#]+)/);
+            return match ? `https://lh3.googleusercontent.com/d/${match[1]}=s500` : cleanUrl;
         }
 
         function parseCSV(text) {
@@ -790,6 +830,82 @@
             }
         }
 
+        function renderPersonalProfile(user) {
+            const container = document.getElementById('section-profil');
+            if (!container) return;
+            
+            const isLaki = user.jk.toUpperCase().startsWith('L');
+            const kesanPesan = user.kesan_kustom || generateKesanPesan(user.nama, user.nis);
+
+            container.innerHTML = `
+                <div class="max-w-4xl mx-auto bg-gradient-to-br from-white to-slate-50 rounded-[40px] shadow-2xl border border-slate-100 overflow-hidden">
+                    <!-- Banner Atas -->
+                    <div class="h-48 bg-gradient-to-r from-blue-600 via-indigo-600 to-slate-900 relative">
+                        <div class="absolute -bottom-20 left-1/2 -translate-x-1/2 md:left-12 md:translate-x-0">
+                            <div class="w-36 h-36 md:w-40 md:h-40 rounded-full border-4 border-white bg-slate-800 overflow-hidden shadow-xl relative">
+                                <img src="${user.foto}" alt="${user.nama}" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(user.nama)}&background=${isLaki ? '2563eb' : 'db2777'}&color=fff&size=512&bold=true'">
+                                <div class="absolute bottom-0 inset-x-0 bg-black/50 text-white text-[8px] font-black uppercase text-center py-1">ALUMNI</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Informasi Profile -->
+                    <div class="pt-24 pb-12 px-6 md:px-12">
+                        <div class="text-center md:text-left mb-8">
+                            <h2 class="text-3xl md:text-4xl font-black text-slate-800 tracking-tight leading-none uppercase">${user.nama}</h2>
+                            <p class="text-amber-500 font-extrabold tracking-[0.3em] text-[10px] uppercase mt-2"><i class="fas fa-graduation-cap mr-1"></i> SDN 1 TANJUNGKARYA KELAS 6</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Kolom Kiri: Data Utama -->
+                            <div class="space-y-4">
+                                <div class="bg-white p-5 rounded-3xl border border-slate-100 shadow-sm flex items-center gap-4">
+                                    <div class="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-lg"><i class="fas fa-id-card"></i></div>
+                                    <div>
+                                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Nomor Induk Siswa (NIS)</p>
+                                        <p class="text-slate-800 font-black text-base font-mono">${user.nis}</p>
+                                    </div>
+                                </div>
+
+                                <div class="bg-white p-5 rounded-3xl border border-slate-100 shadow-sm flex items-center gap-4">
+                                    <div class="w-10 h-10 rounded-2xl bg-amber-50 text-amber-500 flex items-center justify-center text-lg"><i class="fas fa-calendar-alt"></i></div>
+                                    <div>
+                                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Tempat, Tanggal Lahir</p>
+                                        <p class="text-slate-800 font-bold text-sm">${user.ttl || '-'}</p>
+                                    </div>
+                                </div>
+
+                                <div class="bg-white p-5 rounded-3xl border border-slate-100 shadow-sm flex items-center gap-4">
+                                    <div class="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg"><i class="fas fa-map-marker-alt"></i></div>
+                                    <div>
+                                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Alamat Rumah</p>
+                                        <p class="text-slate-800 font-bold text-sm leading-relaxed">${user.alamat || '-'}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Kolom Kanan: Detail & Kesan -->
+                            <div class="space-y-4">
+                                <div class="bg-gradient-to-r from-amber-50 to-orange-50 p-5 rounded-3xl border border-amber-100 flex items-center gap-4">
+                                    <div class="w-10 h-10 rounded-2xl bg-amber-400/20 text-amber-600 flex items-center justify-center text-lg"><i class="fas fa-rocket"></i></div>
+                                    <div class="flex-1">
+                                        <p class="text-[9px] font-black text-amber-700 uppercase tracking-widest">Cita-Cita Mulia</p>
+                                        <p class="text-slate-800 font-extrabold text-base uppercase tracking-tight">${user.cita_cita || '-'}</p>
+                                    </div>
+                                </div>
+
+                                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-3xl border border-blue-100 relative overflow-hidden">
+                                    <i class="fas fa-quote-left text-blue-200/50 text-6xl absolute right-4 bottom-2 pointer-events-none"></i>
+                                    <p class="text-[9px] font-black text-blue-600 uppercase tracking-widest mb-3"><i class="fas fa-quote-left mr-1"></i> Kesan & Pesan Masa Sekolah</p>
+                                    <p class="text-slate-700 italic text-sm leading-relaxed font-medium relative z-10">"${kesanPesan}"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
         function showPortal(user) {
             const loginOverlay = document.getElementById('loginOverlay');
             loginOverlay.classList.add('opacity-0', 'scale-90');
@@ -806,7 +922,9 @@
                     upImg.src = user.foto;
                     upImg.onerror = () => upImg.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.nama)}&background=fbbf24&color=0f172a&bold=true`;
                     document.getElementById('userBadge').classList.replace('hidden', 'flex');
-                    document.getElementById('searchContainer').classList.remove('hidden');
+                    
+                    // Render personal full profile
+                    renderPersonalProfile(user);
                 }
             }, 700);
         }
@@ -819,7 +937,7 @@
         async function init() {
             createBubbles();
             
-            // 1. Ambil data Siswa
+            // 1. Ambil data Siswa (dilengkapi kolom metadata)
             try {
                 const response = await fetch(CSV_URL_SISWA);
                 const csvData = await response.text();
@@ -831,7 +949,11 @@
                         nama: row[1],
                         nis: row[2] ? row[2].trim() : '-',
                         jk: row[4] || 'L/P',
-                        foto: formatDriveImage(row[6])
+                        foto: formatDriveImage(row[6]),
+                        ttl: row[7] || '',         // Kolom H: Tempat, Tanggal Lahir
+                        alamat: row[8] || '',      // Kolom I: Alamat Rumah
+                        cita_cita: row[9] || '',   // Kolom J: Cita-cita
+                        kesan_kustom: row[10] || '' // Kolom K: Kesan & Pesan kustom
                     }));
 
                 document.getElementById('totalSiswa').innerText = students.length;
@@ -849,7 +971,7 @@
                 console.error("Error memuat data siswa:", err); 
             }
 
-            // 2. Ambil data Guru (Menggunakan try-catch, jika gagal/kosong pakai defaultTeachers)
+            // 2. Ambil data Guru
             try {
                 const response = await fetch(CSV_URL_GURU);
                 if (response.ok) {
@@ -860,7 +982,8 @@
                         .map(row => ({
                             nama: row[1],
                             jabatan: row[2] || 'Staff Pengajar',
-                            foto: formatDriveImage(row[3])
+                            foto: formatDriveImage(row[3]),
+                            motivasi: row[4] || '' 
                         }));
                     teachers = parsedTeachers.length > 0 ? parsedTeachers : defaultTeachers;
                 } else {
@@ -871,7 +994,6 @@
                 teachers = defaultTeachers;
             }
             
-            // Set Principal Avatar jika ada di guru data
             const principal = teachers.find(t => t.jabatan.toLowerCase().includes("kepala"));
             if (principal) {
                 document.getElementById('principalAvatar').src = principal.foto;
@@ -879,18 +1001,18 @@
             
             renderTeachers(teachers);
 
-            // 3. Ambil data Galeri (Menggunakan try-catch, jika gagal/kosong pakai defaultGallery)
+            // 3. Ambil data Galeri
             try {
                 const response = await fetch(CSV_URL_GALERI);
                 if (response.ok) {
                     const csvData = await response.text();
                     const rows = parseCSV(csvData);
                     const parsedGallery = rows.slice(1)
-                        .filter(row => row[3]) // pastikan ada foto
+                        .filter(row => row[3]) 
                         .map(row => ({
                             keterangan: row[1] || 'Momen Kenangan',
                             kategori: (row[2] || 'normal').toLowerCase(),
-                            foto: formatDriveImage(row[3])
+                            foto: row[3] // Biarkan diproses di renderGallery untuk memecah koma slideshow
                         }));
                     galleryItems = parsedGallery.length > 0 ? parsedGallery : defaultGallery;
                 } else {
@@ -901,13 +1023,17 @@
                 galleryItems = defaultGallery;
             }
             renderGallery(galleryItems);
+            
+            // Jalankan Auto-play Slideshow di Galeri
+            startAutoplaySlideshows();
         }
 
         function renderTeachers(data) {
             const grid = document.getElementById('guruGrid');
             grid.innerHTML = '';
-            data.forEach((g) => {
-                const encodedData = encodeURIComponent(JSON.stringify(g));
+            data.forEach((g, index) => {
+                const teacherObj = { ...g, index: index };
+                const encodedData = encodeURIComponent(JSON.stringify(teacherObj));
                 grid.innerHTML += `
                     <div class="bg-slate-50 border border-slate-100 rounded-[24px] p-3 text-center shadow-sm hover:shadow-md transition-all hover:-translate-y-1 cursor-pointer" onclick="openTeacherZoom('${encodedData}')">
                         <div class="aspect-square rounded-2xl overflow-hidden mb-3 bg-slate-200">
@@ -923,22 +1049,108 @@
         function renderGallery(data) {
             const grid = document.getElementById('collageGrid');
             grid.innerHTML = '';
-            data.forEach(item => {
-                let sizeClass = '';
-                if (item.kategori === 'big') sizeClass = 'big';
-                else if (item.kategori === 'tall') sizeClass = 'tall';
-                else if (item.kategori === 'wide') sizeClass = 'wide';
+            data.forEach((item, index) => {
+                // Pecah link foto jika ada koma (mendukung slideshow)
+                const photos = item.foto.split(',').map(p => formatDriveImage(p.trim()));
+                const hasMultiplePhotos = photos.length > 1;
+
+                let mediaHTML = '';
+                if (hasMultiplePhotos) {
+                    mediaHTML = `
+                        <div class="relative w-full h-64 overflow-hidden group/slide" id="slideshow-${index}">
+                            <!-- Image tracks with premium cinematic animation properties -->
+                            <div class="w-full h-full relative">
+                                ${photos.map((photo, i) => `
+                                    <img src="${photo}" class="slide-img ${i === 0 ? 'active' : 'inactive'}" data-slide-idx="${i}">
+                                `).join('')}
+                            </div>
+                            
+                            <!-- Slide Controls -->
+                            <button onclick="prevSlide(event, 'slideshow-${index}')" class="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-black/40 hover:bg-black/60 text-white flex items-center justify-center opacity-0 group-hover/slide:opacity-100 transition-opacity">
+                                <i class="fas fa-chevron-left text-xs"></i>
+                            </button>
+                            <button onclick="nextSlide(event, 'slideshow-${index}')" class="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-black/40 hover:bg-black/60 text-white flex items-center justify-center opacity-0 group-hover/slide:opacity-100 transition-opacity">
+                                <i class="fas fa-chevron-right text-xs"></i>
+                            </button>
+
+                            <!-- Slide Dots Indicators -->
+                            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex gap-1.5 bg-black/30 px-3 py-1 rounded-full backdrop-blur-sm">
+                                ${photos.map((_, i) => `
+                                    <span class="w-1.5 h-1.5 rounded-full transition-all duration-300 ${i === 0 ? 'bg-amber-400 w-3' : 'bg-white/50'}" data-slide-dot="${i}"></span>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    mediaHTML = `
+                        <img src="${formatDriveImage(item.foto)}" alt="${item.keterangan}" class="collage-img" onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=Momen+Kenangan'">
+                    `;
+                }
 
                 grid.innerHTML += `
-                    <div class="collage-item ${sizeClass}">
-                        <img src="${item.foto}" alt="${item.keterangan}" class="collage-img" onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=Momen+Kenangan'">
+                    <div class="collage-item group">
+                        ${mediaHTML}
                         <div class="collage-overlay">
-                            <span class="text-[9px] font-black uppercase tracking-widest text-amber-400">Memory SDN 1</span>
+                            <span class="text-[9px] font-black uppercase tracking-widest text-amber-400"><i class="fas fa-camera mr-1"></i> ${hasMultiplePhotos ? 'Momen Berseri' : 'Potret Kenangan'}</span>
                             <h4 class="font-bold text-xs md:text-sm line-clamp-2">${item.keterangan}</h4>
                         </div>
                     </div>
                 `;
             });
+        }
+
+        function prevSlide(event, slideshowId) {
+            event.stopPropagation();
+            shiftSlide(slideshowId, -1);
+        }
+
+        function nextSlide(event, slideshowId) {
+            event.stopPropagation();
+            shiftSlide(slideshowId, 1);
+        }
+
+        function shiftSlide(slideshowId, direction) {
+            const container = document.getElementById(slideshowId);
+            if (!container) return;
+            
+            const imgs = container.querySelectorAll('.slide-img');
+            const dots = container.querySelectorAll('[data-slide-dot]');
+            if (imgs.length <= 1) return;
+
+            let currentIdx = 0;
+            imgs.forEach((img, i) => {
+                if (img.classList.contains('active')) {
+                    currentIdx = i;
+                }
+            });
+
+            let nextIdx = (currentIdx + direction + imgs.length) % imgs.length;
+
+            imgs.forEach((img, i) => {
+                if (i === nextIdx) {
+                    img.classList.remove('inactive');
+                    img.classList.add('active');
+                } else {
+                    img.classList.remove('active');
+                    img.classList.add('inactive');
+                }
+            });
+
+            dots.forEach((dot, i) => {
+                if (i === nextIdx) {
+                    dot.className = 'w-3 h-1.5 rounded-full bg-amber-400 transition-all duration-300';
+                } else {
+                    dot.className = 'w-1.5 h-1.5 rounded-full bg-white/50 transition-all duration-300';
+                }
+            });
+        }
+
+        function startAutoplaySlideshows() {
+            setInterval(() => {
+                document.querySelectorAll('[id^="slideshow-"]').forEach(slideshow => {
+                    shiftSlide(slideshow.id, 1);
+                });
+            }, 5000); // Berganti slide otomatis setiap 5 detik
         }
 
         function renderCards(data) {
@@ -970,7 +1182,6 @@
         function filterByGender(gender) {
             let filtered = gender === 'ALL' ? students : students.filter(s => s.jk.toUpperCase().startsWith(gender));
             renderCards(filtered);
-            scrollToSection('alumni');
         }
 
         function openZoomDetail(studentDataEncoded) {
@@ -981,8 +1192,7 @@
             document.getElementById('modalNama').innerText = s.nama;
             document.getElementById('modalNIS').innerText = s.nis;
             
-            // Set dynamic Kesan & Pesan
-            document.getElementById('modalKesan').innerText = `"${generateKesanPesan(s.nama, s.nis)}"`;
+            document.getElementById('modalKesan').innerText = `"${s.kesan_kustom || generateKesanPesan(s.nama, s.nis)}"`;
 
             const badge = document.getElementById('modalGenderBadge');
             badge.innerText = isLaki ? 'Laki-laki' : 'Perempuan';
@@ -1008,8 +1218,8 @@
             document.getElementById('modalTeacherNama').innerText = t.nama;
             document.getElementById('modalTeacherJabatan').innerText = t.jabatan;
             
-            // Set dynamic motivational message
-            document.getElementById('modalTeacherMotivasi').innerText = `"${generateMotivasiGuru(t.nama)}"`;
+            const motivasiTeks = t.motivasi && t.motivasi.trim() !== "" ? t.motivasi : generateMotivasiGuru(t.nama, t.index);
+            document.getElementById('modalTeacherMotivasi').innerText = `"${motivasiTeks}"`;
 
             overlay.classList.remove('hidden');
             overlay.classList.add('flex');
